@@ -4243,57 +4243,31 @@ void Blockchain::check_against_checkpoints(const checkpoints& points, bool enfor
       }
       else
       {
-        LOG_ERROR("WARNING: local blockchain failed to pass a MoneroPulse checkpoint, and you could be on a fork. You should either sync up from scratch, OR download a fresh blockchain bootstrap, OR enable checkpoint enforcing with the --enforce-dns-checkpointing command-line option");
+        LOG_ERROR("WARNING: local blockchain failed to pass a checkpoint, and you could be on a fork. You should either sync up from scratch, OR download a fresh blockchain bootstrap, OR enable checkpoint enforcing with the --enforce-dns-checkpointing command-line option");
       }
     }
   }
   if (stop_batch)
     m_db->batch_stop();
 }
+
 //------------------------------------------------------------------
 // returns false if any of the checkpoints loading returns false.
 // That should happen only if a checkpoint is added that conflicts
 // with an existing checkpoint.
 bool Blockchain::update_checkpoints(const std::string& file_path, bool check_dns)
 {
-  if (!m_checkpoints.load_checkpoints_from_json(file_path))
-  {
-      return false;
-  }
-
-  // if we're checking both dns and json, load checkpoints from dns.
-  // if we're not hard-enforcing dns checkpoints, handle accordingly
-  if (m_enforce_dns_checkpoints && check_dns && !m_offline)
-  {
-    if (!m_checkpoints.load_checkpoints_from_dns())
-    {
-      return false;
-    }
-  }
-  else if (check_dns && !m_offline)
-  {
-    checkpoints dns_points;
-    dns_points.load_checkpoints_from_dns();
-    if (m_checkpoints.check_for_conflicts(dns_points))
-    {
-      check_against_checkpoints(dns_points, false);
-    }
-    else
-    {
-      MERROR("One or more checkpoints fetched from DNS conflicted with existing checkpoints!");
-    }
-  }
-
+  // Directly verify against hardcoded checkpoints
   check_against_checkpoints(m_checkpoints, true);
 
   return true;
 }
+
 //------------------------------------------------------------------
 void Blockchain::set_enforce_dns_checkpoints(bool enforce_checkpoints)
 {
   m_enforce_dns_checkpoints = enforce_checkpoints;
 }
-
 //------------------------------------------------------------------
 void Blockchain::block_longhash_worker(uint64_t height, const epee::span<const block> &blocks, std::unordered_map<crypto::hash, crypto::hash> &map) const{
   TIME_MEASURE_START(t);
