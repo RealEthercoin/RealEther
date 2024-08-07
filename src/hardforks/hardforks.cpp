@@ -26,38 +26,54 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "hardforks.h"
+#pragma once
+
+#include "misc_log_ex.h"
 
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain.hardforks"
 
 const hardfork_t mainnet_hard_forks[] = {
-  // version 1 from the start of the blockchain
-  {  1, 1      ,  0, 1542228716, 0 },
-  {  2, 100    ,  0, 1542238717, 0 },
-  {  3, 150    ,  0, 1542248718, 0 },
-  {  8, 150000 ,  0, 1545317008, 0 },
-  {  9, 151000 ,  0, 1545332008, 0 },
-  { 10, 555555 ,  0, 1550658699, 1 },
-  { 11, 750000 , 51, 1553561408, 0 }
+  { 1, 1, 0, 0, 0 },
+  { 2, 11, 0, 0, 0 },
+  { 3, 21, 0, 0, 0 },
+  { 4, 31, 0, 0, 0 },
+  { 5, 41, 0, 0, 0 },
+  { 6, 51, 0, 0, 0 },
+  { 7, 61, 0, 0, 0 },
+  { 8, 71, 0, 0, 0 },
+  { 9, 81, 0, 0, 0 },
+  { 10, 91, 0, 0, 0 },
+  { 11, 101, 0, 0, 0 }
 };
 const size_t num_mainnet_hard_forks = sizeof(mainnet_hard_forks) / sizeof(mainnet_hard_forks[0]);
 
 const hardfork_t testnet_hard_forks[] = {
-  // version 1 from the start of the blockchain
-  {  1,     1,  0, 1542228716, 0 },
-  {  2,   100,  0, 1542438717, 0 },
-  {  3,   150,  0, 1542548718, 0 },
-  {  9,   250,  0, 1542648718, 0 },
-  { 10, 52000, 51, 1549934499, 1 },
-  { 11, 62500, 51, 1552491067, 0 }
+  { 1, 1, 0, 0, 0 },
+  { 2, 11, 0, 0, 0 },
+  { 3, 21, 0, 0, 0 },
+  { 4, 31, 0, 0, 0 },
+  { 5, 41, 0, 0, 0 },
+  { 6, 51, 0, 0, 0 },
+  { 7, 61, 0, 0, 0 },
+  { 8, 71, 0, 0, 0 },
+  { 9, 81, 0, 0, 0 },
+  { 10, 91, 0, 0, 0 },
+  { 11, 101, 0, 0, 0 }
 };
 const size_t num_testnet_hard_forks = sizeof(testnet_hard_forks) / sizeof(testnet_hard_forks[0]);
 
 const hardfork_t stagenet_hard_forks[] = {
-  // version 1 from the start of the blockchain
-  { 1  ,      1, 0, 1341378000, 0 },
-  { 10 ,      2, 0, 1341478000, 0 },
-  { 11 ,  21200, 0, 1551820225, 0 }
+  { 1, 1, 0, 0, 0 },
+  { 2, 11, 0, 0, 0 },
+  { 3, 21, 0, 0, 0 },
+  { 4, 31, 0, 0, 0 },
+  { 5, 41, 0, 0, 0 },
+  { 6, 51, 0, 0, 0 },
+  { 7, 61, 0, 0, 0 },
+  { 8, 71, 0, 0, 0 },
+  { 9, 81, 0, 0, 0 },
+  { 10, 91, 0, 0, 0 },
+  { 11, 101, 0, 0, 0 }
 };
 const size_t num_stagenet_hard_forks = sizeof(stagenet_hard_forks) / sizeof(stagenet_hard_forks[0]);

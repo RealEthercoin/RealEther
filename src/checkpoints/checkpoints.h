@@ -35,8 +35,6 @@
 #include "cryptonote_config.h"
 
 #define ADD_CHECKPOINT(h, hash)  CHECK_AND_ASSERT(add_checkpoint(h,  hash), false);
-#define JSON_HASH_FILE_NAME "checkpoints.json"
-
 
 namespace cryptonote
 {
@@ -44,13 +42,11 @@ namespace cryptonote
    * @brief A container for blockchain checkpoints
    *
    * A checkpoint is a pre-defined hash for the block at a given height.
-   * Some of these are compiled-in, while others can be loaded at runtime
-   * either from a json file or via DNS from a checkpoint-hosting server.
+   * These are compiled-in and help ensure the blockchain's integrity.
    */
   class checkpoints
   {
   public:
-
     /**
      * @brief default constructor
      */
@@ -152,38 +148,6 @@ namespace cryptonote
      * @return true unless adding a checkpoint fails
      */
     bool init_default_checkpoints(network_type nettype);
-
-    /**
-     * @brief load new checkpoints
-     *
-     * Loads new checkpoints from the specified json file, as well as
-     * (optionally) from DNS.
-     *
-     * @param json_hashfile_fullpath path to the json checkpoints file
-     * @param nettype network type
-     * @param dns whether or not to load DNS checkpoints
-     *
-     * @return true if loading successful and no conflicts
-     */
-    bool load_new_checkpoints(const std::string &json_hashfile_fullpath, network_type nettype=MAINNET, bool dns=true);
-
-    /**
-     * @brief load new checkpoints from json
-     *
-     * @param json_hashfile_fullpath path to the json checkpoints file
-     *
-     * @return true if loading successful and no conflicts
-     */
-    bool load_checkpoints_from_json(const std::string &json_hashfile_fullpath);
-
-    /**
-     * @brief load new checkpoints from DNS
-     *
-     * @param nettype network type
-     *
-     * @return true if loading successful and no conflicts
-     */
-    bool load_checkpoints_from_dns(network_type nettype = MAINNET);
 
   private:
     std::map<uint64_t, crypto::hash> m_points; //!< the checkpoints container
